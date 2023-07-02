@@ -3,8 +3,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class PersonManagement {
     private Map<String, Person> persons; // veritabanı
@@ -20,14 +18,12 @@ public class PersonManagement {
     }
 
     public Map<String, Person> list() {
-        persons.forEach((s, person) -> System.out.println(
-                "  Adı Soyadı " + person.getFirstName() + person.getLastName() +
-                        "  Telefon Numarası " + person.getPhoneNumber() +
-                        "  Rehber Kimliği " + person.getId()));
-        return  persons;
+        persons.forEach((s, person) -> System.out.println("  Adı Soyadı " + person.getFirstName() + person.getLastName() + "  Telefon Numarası " + person.getPhoneNumber() + "  Rehber Kimliği " + person.getId()));
+        return persons;
     }
-    public void geriYuklemeList(Map<String, Person> personsV2) {
-        persons =personsV2;
+
+    public void restoreList(Map<String, Person> personsV2) {
+        persons = personsV2;
     }
 
     public void delete(Person person) {
@@ -36,8 +32,7 @@ public class PersonManagement {
     }
 
     public Optional<Person> searchPersonPhoneNumber(String phoneNumber) {
-        Optional<Person> foundPerson = persons.values().stream()
-                .filter(person -> person.getPhoneNumber().equalsIgnoreCase(phoneNumber) )
+        Optional<Person> foundPerson = persons.values().stream().filter(person -> person.getPhoneNumber().equalsIgnoreCase(phoneNumber))
                 .findFirst();
 
         // Bulunan kişiyi kontrol et ve sonucu yazdır

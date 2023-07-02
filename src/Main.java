@@ -4,11 +4,8 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int choice = 0;
-        String isYes;
-        Map<String, App> apps = new HashMap<>();
-        boolean result;
         App app;
-        AppManagementApp managementApp = new AppManagementApp();
+        AppManagement managementApp = new AppManagement();
         PhoneManagementApp phoneManagementApp = new PhoneManagementApp();
         PersonManagement personManagement = new PersonManagement();
         FileManagement fileManagement = new FileManagement();
@@ -69,104 +66,97 @@ public class Main {
                     System.out.println("--------------------------------");
                 }
                 case 4 -> {
-                        System.out.println("--------------------------------");
-                    String serialNumber;
-                        do {
-                            System.out.println("Eklenilecek Telefonunun Seri Numarası");
-                            serialNumber= sc.next();
-                            String appSNumber;
-                            System.out.println("App Name : ");
-                            String appName = sc.next();
-                            System.out.println("App Serial Number : ");
-                            appSNumber = sc.next();
-                            System.out.println("Version :");
-                            sc.nextLine();
-                            String version = sc.next();
-                            System.out.println("Size");
-                            String size = sc.next();
-                            result = phoneManagementApp.search(serialNumber);
-                            app = new App(appName, version, size, appSNumber);
-                            apps.put(appSNumber, app);
-                            managementApp.add(app, appSNumber, result);
-                            System.out.println("isYes");
-                            isYes = sc.next();
-                        }while (isYes.equals("e"));
-                        phoneManagementApp.addApp(serialNumber, apps);
-                        apps.clear();
-                        System.out.println("--------------------------------");
+                    System.out.println("--------------------------------");
+                    System.out.println("App Name : ");
+                    String appName = sc.next();
+                    System.out.println("App Serial Number : ");
+                    String appSNumber = sc.next();
+                    System.out.println("Version :");
+                    sc.nextLine();
+                    String version = sc.next();
+                    System.out.println("Size");
+                    String size = sc.next();
+                    app = new App(appName, version, size, appSNumber);
+                    managementApp.add(app, appSNumber);
+                    // phoneManagementApp.addApp(app);
+                    System.out.println("--------------------------------");
 
-                    } case 5 -> {
-                        System.out.println("--------------------------------");
-                        UUID uuid = UUID.randomUUID();
-                        String uuidAsString = uuid.toString();
-                        System.out.println("Person Name : ");
-                        String firstName = sc.next();
-                        System.out.println("Last Name :");
-                        String lastName = sc.next();
-                        System.out.println("Phone Number :");
-                        String phoneNumber = sc.next();
-                        System.out.println("Email :");
-                        String eMail = sc.next();
-                        Person person = new Person(uuidAsString, firstName, lastName, phoneNumber, eMail);
-                        personManagement.add(person);
-                        personManagement.list();
-                        System.out.println("--------------------------------");
-                    }
-                    case 6 -> {
-                        System.out.println("--------------------------------");
-                        personManagement.list();
-                        System.out.println("--------------------------------");
-                    }
-                    case 7 -> {
-                        System.out.println("--------------------------------");
-                        managementApp.list();
-                        System.out.println("--------------------------------");
-                    }
-                    case 8 -> {
-                        System.out.println("--------------------------------");
-                        System.out.println("Silinecek kişinin telefon numarasını giriniz");
-                        System.out.println("Phone Number :");
-                        String phoneNumber = sc.next();
-                        Optional<Person> person = personManagement.searchPersonPhoneNumber(phoneNumber);
-                        personManagement.delete(person.get());
-                        System.out.println("--------------------------------");
-                    }
-                    case 9 -> {
-                        System.out.println("--------------------------------");
-                        System.out.println("Enter App Serial Number : ");
-                        String appSerialNumber = sc.next();
-                        Optional<App> foundApp = managementApp.search(appSerialNumber);
-                        System.out.println("Enter Phone serial number : ");
-                        String serialNumber = sc.next();
-                        phoneManagementApp.deleteApp(serialNumber, foundApp.get());
-                        System.out.println("--------------------------------");
-                    }
-                    case 10 -> {
-                        System.out.println("--------------------------------");
-                        System.out.println("Güncelleyeceğiniz Uygulamanın Seri Numarasını Giriniz:");
-                        String appSerialNumber = sc.next();
-                        System.out.println("Güncelleyeceğiniz Uygulamanın Versiyon Numarasını Giriniz:");
-                        String appVersionNumber = sc.next();
-                        managementApp.updateApp(appSerialNumber, appVersionNumber);
-                        System.out.println("--------------------------------");
-                    }
-                    case 11 -> {
-                        System.out.println("--------------------------------");
-                        System.out.println("Veri Yedekleme Başladı");
-
-                        fileManagement.veriYedekleme(phoneManagementApp.list(), managementApp.list(), personManagement.list());
-                        System.out.println("--------------------------------");
-                    }
-                    case 12 -> {
-                        System.out.println("--------------------------------");
-                        System.out.println("Veri Geri Yükleme Başladı");
-
-                        fileManagement.geriYukleme(phoneManagementApp.list(), managementApp.list(), personManagement.list());
-
-
-                        System.out.println("--------------------------------");
-                    }
                 }
+                case 5 -> {
+                    System.out.println("--------------------------------");
+                    UUID uuid = UUID.randomUUID();
+                    String uuidAsString = uuid.toString();
+                    System.out.println("Person Name : ");
+                    String firstName = sc.next();
+                    System.out.println("Last Name :");
+                    String lastName = sc.next();
+                    System.out.println("Phone Number :");
+                    String phoneNumber = sc.next();
+                    System.out.println("Email :");
+                    String eMail = sc.next();
+                    Person person = new Person(uuidAsString, firstName, lastName, phoneNumber, eMail);
+                    personManagement.add(person);
+                    personManagement.list();
+                    System.out.println("--------------------------------");
+                }
+                case 6 -> {
+                    System.out.println("--------------------------------");
+                    personManagement.list();
+                    System.out.println("--------------------------------");
+                }
+                case 7 -> {
+                    System.out.println("--------------------------------");
+                    managementApp.list();
+                    System.out.println("--------------------------------");
+                }
+                case 8 -> {
+                    System.out.println("--------------------------------");
+                    System.out.println("Silinecek kişinin telefon numarasını giriniz");
+                    System.out.println("Phone Number :");
+                    String phoneNumber = sc.next();
+                    Optional<Person> person = personManagement.searchPersonPhoneNumber(phoneNumber);
+                    personManagement.delete(person.get());
+                    System.out.println("--------------------------------");
+                }
+                case 9 -> {
+                    System.out.println("--------------------------------");
+                    System.out.println("Enter App Serial Number : ");
+                    String appSerialNumber = sc.next();
+                    Optional<App> foundApp = managementApp.search(appSerialNumber);
+                    phoneManagementApp.deleteApp(appSerialNumber, foundApp.get());
+                    System.out.println("--------------------------------");
+                }
+                case 10 -> {
+                    System.out.println("--------------------------------");
+                    System.out.println("Güncelleyeceğiniz Uygulamanın Seri Numarasını Giriniz:");
+                    String appSerialNumber = sc.next();
+                    System.out.println("Güncelleyeceğiniz Uygulamanın Versiyon Numarasını Giriniz:");
+                    String appVersionNumber = sc.next();
+                    managementApp.updateApp(appSerialNumber, appVersionNumber);
+                    System.out.println("--------------------------------");
+                }
+                case 11 -> {
+                    System.out.println("--------------------------------");
+                    System.out.println("Veri Yedekleme Başladı");
+                    fileManagement.dataBackup(phoneManagementApp.list(), managementApp.list(), personManagement.list());
+                    System.out.println("--------------------------------");
+                }
+                case 12 -> {
+                    System.out.println("--------------------------------");
+                    System.out.println("Veri Geri Yükleme Başladı");
+
+                    fileManagement.restore(phoneManagementApp.list(), managementApp.list(), personManagement.list());
+
+                    System.out.println("--------------------------------");
+                }
+                case 13 -> {
+                    System.out.println("--------------------------------");
+                    Map<String, App> apps = managementApp.list();
+                    phoneManagementApp.addApp(apps);
+                    phoneManagementApp.calculateStorage();
+                    System.out.println("--------------------------------");
+                }
+            }
 
 
             } while (choice != -1) ;
@@ -185,13 +175,9 @@ public class Main {
             System.out.println("8: Kişi Sil");
             System.out.println("9: Uygulama Sil");
             System.out.println("10: Uygulama Güncelle");
-            System.out.println("10: Kişileri Yedekle");
-            System.out.println("11: Uygulamaları Yedekle");
-            System.out.println("12: Kişileri Geri Yükle");
-            System.out.println("13: Uygulamaları Geri Yükle");
+            System.out.println("11: Veri Yedekle");
+            System.out.println("12: Verileri Geri Yükle");
             System.out.println("14: Depolama Alanı Kontrolü");
-
-
             System.out.println("-1: Çıkış \n\n");
         }
     }

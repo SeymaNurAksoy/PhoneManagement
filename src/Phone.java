@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Phone {
 
@@ -20,7 +17,6 @@ public class Phone {
         this.os = os;
         apps = new HashMap<>();
     }
-
     public String getBrand() {
         return brand;
     }
@@ -68,13 +64,9 @@ public class Phone {
     public void setApps(Map<String, App> apps) {
         this.apps = apps;
     }
-    public void uygulamaEkle(String serial, App app) {
-        apps.put(serial,app);
-    }
+
     @Override
     public String toString() {
-        String listString = "";
-
 
         return "Phone{" +
                 "brand='" + brand + '\'' +
@@ -82,7 +74,6 @@ public class Phone {
                 ", serialNumber='" + serialNumber + '\'' +
                 ", storageSpace=" + storageSpace +
                 ", os='" + os + '\'' +
-                ", apps=" + listString +
                 '}';
     }
 }

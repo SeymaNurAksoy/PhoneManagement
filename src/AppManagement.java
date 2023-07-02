@@ -1,21 +1,17 @@
 import java.util.*;
 
-public class AppManagementApp {
+public class AppManagement {
 
     public Map<String, App> apps;
 
 
-    public AppManagementApp() {
-        apps = new TreeMap<>();
+    public AppManagement() {
+        apps = new HashMap<>();
     }
 
-    public void add(App app, String appSerialNumber, Boolean result) {
-        if (result) {
+    public void add(App app, String appSerialNumber) {
             apps.put(appSerialNumber, app);
             System.out.println("App eklendi.");
-        } else {
-            System.out.println("Yok");
-        }
     }
 
     public Optional<App> search(String appSerialNumber) {
@@ -36,7 +32,7 @@ public class AppManagementApp {
         return  apps;
 
     }
-    public void geriYuklemeList(Map<String, App> appsV2) {
+    public void restoreList(Map<String, App> appsV2) {
         apps =appsV2;
     }
     public void updateApp(String serialNumber, String newVersion) {

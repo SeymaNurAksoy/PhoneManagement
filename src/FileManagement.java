@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.*;
 
 public class FileManagement {
-    public void veriYedekleme(Map<String,Phone> phones, Map<String,App> apps, Map<String,Person> persons) {
+    public void dataBackup(Map<String,Phone> phones, Map<String,App> apps, Map<String,Person> persons) {
         try (FileWriter writer = new FileWriter("veri_yedekleme.txt")) {
             // Telefonları dosyaya yazma
             writer.write("----- Telefonlar -----\n");
@@ -46,7 +46,7 @@ public class FileManagement {
         }
     }
 
-    public void geriYukleme(Map<String,Phone> phones, Map<String,App> apps, Map<String,Person> persons) {
+    public void restore(Map<String,Phone> phones, Map<String,App> apps, Map<String,Person> persons) {
         try (Scanner scanner = new Scanner(new File("veri_yedekleme.txt"))) {
             String line;
             Map<String,Phone>  telefonList = new HashMap<>();
@@ -92,11 +92,11 @@ public class FileManagement {
 
             PhoneManagementApp phoneManagementApp = new PhoneManagementApp();
             PersonManagement personManagement = new PersonManagement();
-            AppManagementApp managementApp= new AppManagementApp();
+            AppManagement managementApp= new AppManagement();
 
-            phoneManagementApp.geriYuklemeList(phones);
-            personManagement.geriYuklemeList(persons);
-            managementApp.geriYuklemeList(apps);
+            phoneManagementApp.restoreList(phones);
+            personManagement.restoreList(persons);
+            managementApp.restoreList(apps);
 
             managementApp.list();
             personManagement.list();
